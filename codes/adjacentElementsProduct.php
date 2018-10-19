@@ -1,29 +1,20 @@
 <?php
 
-// function adjacentElementsProduct($inputArray) {
-//     $largestProduct = null;
-//     foreach($inputArray as $key => $number){
-//         if($key == 0 || $key == count($inputArray) - 1){
-//             $rightAdjascent = $number * $inputArray[$key+1];
-//             $leftAdjascent = null;
-//         }else{
-//             $rightAdjascent = $number * $inputArray[$key+1];
-//             $leftAdjascent = $number * $inputArray[$key-1];;
-//         }
-//         if(is_null($largestProduct) || ($leftAdjascent > $largestProduct || $rightAdjascent > $largestProduct)){
-//             $largestProduct = $rightAdjascent > $leftAdjascent ? $rightAdjascent : $leftAdjascent; 
-//         }
-//     }
-//     return $largestProduct;
-// }
+/*
+ * Given an array of integers, find the pair of adjacent elements that has the 
+ * largest product and return that product
+ */
+adjacentElementsProduct([-23, 4, -3, 8, -12]);
 
 function adjacentElementsProduct($inputArray) {
-    $largestProduct = null;
-    foreach($inputArray as $number){
-    	$rightAdjascent = next($inputArray) === false ? null : $number * $rightAdjascent;
-    	$leftAdjascent = prev($inputArray) === false ? null : $number * $rightAdjascent;
-        if(is_null($largestProduct) || ($leftAdjascent > $largestProduct || $rightAdjascent > $largestProduct)){
-            $largestProduct = $rightAdjascent > $leftAdjascent ? $rightAdjascent : $leftAdjascent; 
+    $largestProduct = $inputArray[0] * $inputArray[1];
+    $sizeArray = count($inputArray) - 1;
+    foreach ($inputArray as $key => $number) {
+        if ($key + 1 > $sizeArray) {
+            break;
+        }
+        if ($number * $inputArray[$key + 1] > $largestProduct) {
+            $largestProduct = $number * $inputArray[$key + 1];
         }
     }
     return $largestProduct;
