@@ -14,16 +14,13 @@ makeArrayConsecutive2([6, 2, 3, 8]);
 function makeArrayConsecutive2($statues) {
     $additionalStatues = 0;
     $maxValue = max($statues);
-    $numberStatues = count($statues);
-    for($i = 0; $i < $numberStatues; $i++){
-        if(in_array($statues[$i]+1,$statues)){
-            continue;
-        }else if($statues[$i]+1 < $maxValue){
-            $statues [] = $statues[$i]+1;
-            $additionalStatues++;
-            $numberStatues++;
-            $i = -1;
-        }
+    $minValue = min($statues);
+    while($minValue < $maxValue){
+    	$minValue++;
+    	if(!in_array($minValue, $statues)){
+    		$statues[] = $minValue;
+    		$additionalStatues++;
+    	}
     }
     return $additionalStatues;
 }
