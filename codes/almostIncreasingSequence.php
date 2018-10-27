@@ -7,6 +7,35 @@ $sequence = [1, 3, 2];
 almostIncreasingSequence($sequence);
 
 function almostIncreasingSequence($sequence) {
+    $newArray = $sequence;
+    $sizeSequence = count($sequence);
+    $posExcluida = 0;
+    unset($newArray[$posExcluida]);
+    $almostIncreasingSequence = true;
+    foreach($newArray as $key => $number){
+        if($key == $sizeSequence -1){
+            if($almostIncreasingSequence){
+                return true;
+            }
+            $almostIncreasingSequence = true;
+            $posExcluida++;
+            $newArray = $sequence;
+            unset($newArray[$posExcluida]);
+            unset($prevNumber);
+            reset($newArray);
+        }
+        if(isset($prevNumber) && $prevNumber >= $number){
+            $almostIncreasingSequence = false;
+            break;
+        }
+        $prevNumber = $number;
+        if($posExcluida == $sizeSequence -1){
+            break;
+        }
+    }
+}
+
+function almostIncreasingSequence($sequence) {
     $sizeSequence = count($sequence);
     for($i=0;$i<$sizeSequence;$i++){
         $almostIncreasingSequence = true;
