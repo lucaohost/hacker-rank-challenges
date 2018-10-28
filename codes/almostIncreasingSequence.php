@@ -16,7 +16,7 @@ function almostIncreasingSequence($sequence) {
                   $numOfChanges++;
                   if(array_key_exists($key-2,$sequence)){
                         $antePrevNumber = $sequence[$key-2];
-                        if($antePrevNumber >= $number){
+                        if($sequence[$key-2] >= $number){
                               $removingNumber++;         
                         }
                   }
