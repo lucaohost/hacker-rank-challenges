@@ -3,55 +3,46 @@
  *Given a sequence of integers as an array, determine whether it is possible to obtain a strictly 
  *increasing sequence by removing no more than one element from the array.
  */
-$sequence = [1, 3, 2];
+$sequence = [1, 2, 1, 2];
 almostIncreasingSequence($sequence);
 
 function almostIncreasingSequence($sequence) {
-    $newArray = $sequence;
-    $sizeSequence = count($sequence);
-    $posExcluida = 0;
-    unset($newArray[$posExcluida]);
-    $almostIncreasingSequence = true;
-    foreach($newArray as $key => $number){
-        if($key == $sizeSequence -1){
-            if($almostIncreasingSequence){
-                return true;
-            }
-            $almostIncreasingSequence = true;
-            $posExcluida++;
-            $newArray = $sequence;
-            unset($newArray[$posExcluida]);
-            unset($prevNumber);
-            reset($newArray);
-        }
-        if(isset($prevNumber) && $prevNumber >= $number){
-            $almostIncreasingSequence = false;
-            break;
-        }
-        $prevNumber = $number;
-        if($posExcluida == $sizeSequence -1){
-            break;
-        }
-    }
-}
-
-function almostIncreasingSequence($sequence) {
-    $sizeSequence = count($sequence);
-    for($i=0;$i<$sizeSequence;$i++){
-        $almostIncreasingSequence = true;
-        $newArray = $sequence;
-        unset($newArray[$i]);
-        unset($prevNumber);
-        foreach($newArray as $number){
+      $numOfChanges = 0;
+      $removingNumber = 0;
+      $removingPrevNumber = 0;
+      $possibleChange = 0;
+      foreach($sequence as $key => $number){
             if(isset($prevNumber) && $prevNumber >= $number){
-                $almostIncreasingSequence = false;
-                break;
+                  $numOfChanges++;
+                  if(array_key_exists($key-2,$sequence)){
+                        $antePrevNumber = $sequence[$key-2];
+                        if($antePrevNumber >= $number){
+                              $removingNumber++;         
+                        }
+                  }
+                  if(array_key_exists($key+1,$sequence)){
+                        $nextNumber = $sequence[$key+1];
+                        if($prevNumber >= $nextNumber){
+                              $removingPrevNumber++;         
+                        }
+                  }
+                  if($removingPrevNumber > $removingNumber){
+                        $possibleChange = $removingNumber;                         
+                  }else{
+                        $possibleChange = $removingPrevNumber;
+                  }
+                  if($numOfChanges + $possibleChange > 1){
+                        return false;
+                  }
+                  $possibleChange = 0;
+                  $removingPrevNumber = 0;
+                  $removingNumber = 0;
             }
             $prevNumber = $number;
-        }
-        if($almostIncreasingSequence){
+      }
+      if($numOfChanges === 1){
             return true;
-        }
-    }
-    return false;
+      }else{
+            return false;
+      }
 }
