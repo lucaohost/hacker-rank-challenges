@@ -8,35 +8,24 @@ almostIncreasingSequence($sequence);
 
 function almostIncreasingSequence($sequence) {
       $numOfChanges = 0;
-      $removingNumber = 0;
-      $removingPrevNumber = 0;
-      $possibleChange = 0;
+      $neededChanges = 0;
       foreach($sequence as $key => $number){
             if(isset($prevNumber) && $prevNumber >= $number){
                   $numOfChanges++;
                   if(array_key_exists($key-2,$sequence)){
-                        $antePrevNumber = $sequence[$key-2];
                         if($sequence[$key-2] >= $number){
-                              $removingNumber++;         
+                              $neededChanges++;         
                         }
                   }
                   if(array_key_exists($key+1,$sequence)){
-                        $nextNumber = $sequence[$key+1];
-                        if($prevNumber >= $nextNumber){
-                              $removingPrevNumber++;         
+                        if($prevNumber >= $sequence[$key+1]){
+                              $neededChanges++;         
                         }
                   }
-                  if($removingPrevNumber > $removingNumber){
-                        $possibleChange = $removingNumber;                         
-                  }else{
-                        $possibleChange = $removingPrevNumber;
-                  }
-                  if($numOfChanges + $possibleChange > 1){
+                  if($numOfChanges > 1 || $neededChanges > 1){
                         return false;
                   }
-                  $possibleChange = 0;
-                  $removingPrevNumber = 0;
-                  $removingNumber = 0;
+                  $neededChanges = 0;
             }
             $prevNumber = $number;
       }
