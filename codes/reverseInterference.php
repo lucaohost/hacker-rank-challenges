@@ -1,6 +1,6 @@
 <?php
 function reverseInterference($originalA, $originalB, $broadcastA, $broadcastB) {
-    $sizeWaves = strlen($originalA)
+    $sizeWaves = strlen($originalA);
     $consecutive = 0;
     $moves = 0;
     for($i = 0; $i < $sizeWaves; $i++){
