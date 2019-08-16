@@ -14,5 +14,14 @@
 // [input] array.integer inputArray
 function arrayChange($inputArray)
 {
-    
+    $increases = 0;
+    $numElements = count($inputArray);
+    for ($i = 0; $i < $numElements; $i++) {
+        if ($i !== 0 && $inputArray[$i] <= $inputArray[$i - 1]) {
+            $minimalNumber = abs($inputArray[$i] - $inputArray[$i - 1]) + 1;
+            $inputArray[$i] += $minimalNumber;
+            $increases += $minimalNumber;
+        }
+    }
+    return $increases;
 }
